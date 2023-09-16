@@ -39,7 +39,7 @@ app.stage.on("pointerupoutside", onDragEnd);
 
 function onDragMove(event) {
   if (dragTarget) {
-    console.log(dragTarget.position)
+    console.log(event)
     dragTarget.parent.toLocal(event.global, null, dragTarget.position);
   }
 }
