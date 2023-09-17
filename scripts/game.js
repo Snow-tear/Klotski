@@ -16,9 +16,9 @@ function 创建角色(nb_i, nb_j, i, j, image_path) {
   sprite.nb_j = nb_j;
   sprite.i = i;
   sprite.j = j;
-  sprite.x = (i + nb_i / 2) * 方块边长;
-  sprite.y = (j + nb_j / 2) * 方块边长;
-  sprite.anchor.set(0.5);
+  sprite.x = i * 方块边长;
+  sprite.y = j * 方块边长;
+  // sprite.anchor.set(0.5);
 
   sprite.orientation = new PIXI.Point(0);
 
