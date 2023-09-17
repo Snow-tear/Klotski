@@ -91,19 +91,22 @@ function onDragEnd() {
   if (dragTarget) {
     app.stage.off("pointermove", onDragMove);
     dragTarget.alpha = 1;
+    dragTarget.x = Math.round(dragTarget.x / 方块边长) * 方块边长;
+    dragTarget.y = Math.round(dragTarget.y / 方块边长) * 方块边长;
+    dragTarget.x = dragTarget.x < 0 ? 0 : dragTarget.x;
+    dragTarget.y = dragTarget.y < 0 ? 0 : dragTarget.y;
     dragTarget.orientation = new PIXI.Point(0);
     dragStartPoint = null;
     dragTarget = null;
   }
 }
 
-const 曹操 = 创建角色(2, 2, 1, 0, "../images/曹操.png");
-const 关羽 = 创建角色(2, 1, 1, 2, "../images/关羽.png");
-const 张飞 = 创建角色(1, 2, 0, 0, "../images/张飞.png");
-const 赵云 = 创建角色(1, 2, 0, 2, "../images/赵云.png");
-const 马超 = 创建角色(1, 2, 3, 0, "../images/马超.png");
-const 黄忠 = 创建角色(1, 2, 3, 2, "../images/黄忠.png");
-const 兵1 = 创建角色(1, 1, 0, 4, "../images/兵.png");
-const 兵2 = 创建角色(1, 1, 3, 4, "../images/兵.png");
-const 兵3 = 创建角色(1, 1, 1, 3, "../images/兵.png");
-const 兵4 = 创建角色(1, 1, 2, 3, "../images/兵.png");
+
+fetch("scripts/角色.json")
+  .then(response => response.json())
+  .then(json => {
+    for (const 角色名 in json) {
+      角色 = json[角色名];
+      创建角色(角色.nb_i, 角色.nb_j, 角色.i, 角色.j, 角色.image_path);
+    }
+  });

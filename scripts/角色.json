@@ -1,0 +1,72 @@
+{
+  "曹操": {
+    "nb_i": 2,
+    "nb_j": 2,
+    "i": 1,
+    "j": 0,
+    "image_path": "images/曹操.png"
+  },
+  "关羽": {
+    "nb_i": 2,
+    "nb_j": 1,
+    "i": 1,
+    "j": 2,
+    "image_path": "images/关羽.png"
+  },
+  "张飞": {
+    "nb_i": 1,
+    "nb_j": 2,
+    "i": 0,
+    "j": 0,
+    "image_path": "images/张飞.png"
+  },
+  "赵云": {
+    "nb_i": 1,
+    "nb_j": 2,
+    "i": 0,
+    "j": 2,
+    "image_path": "images/赵云.png"
+  },
+  "马超": {
+    "nb_i": 1,
+    "nb_j": 2,
+    "i": 3,
+    "j": 0,
+    "image_path": "images/马超.png"
+  },
+  "黄忠": {
+    "nb_i": 1,
+    "nb_j": 2,
+    "i": 3,
+    "j": 2,
+    "image_path": "images/黄忠.png"
+  },
+  "兵1": {
+    "nb_i": 1,
+    "nb_j": 1,
+    "i": 2,
+    "j": 3,
+    "image_path": "images/兵.png"
+  },
+  "兵2": {
+    "nb_i": 1,
+    "nb_j": 1,
+    "i": 1,
+    "j": 3,
+    "image_path": "images/兵.png"
+  },
+  "兵3": {
+    "nb_i": 1,
+    "nb_j": 1,
+    "i": 0,
+    "j": 4,
+    "image_path": "images/兵.png"
+  },
+  "兵4": {
+    "nb_i": 1,
+    "nb_j": 1,
+    "i": 3,
+    "j": 4,
+    "image_path": "images/兵.png"
+  }
+}
