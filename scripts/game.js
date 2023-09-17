@@ -9,7 +9,7 @@ const app = new PIXI.Application({
 });
 document.body.appendChild(app.view);
 
-function 创建角色(nb_i, nb_j, i, j, image_path) {
+function 创建角色({nb_i, nb_j, i, j, image_path}) {
   const sprite = PIXI.Sprite.from(image_path);
 
   sprite.nb_i = nb_i;
@@ -42,6 +42,8 @@ app.stage.hitArea = app.screen;
 app.stage.on("pointerup", onDragEnd);
 app.stage.on("pointerupoutside", onDragEnd);
 
+function allowDragTo(x, y) {return true}
+
 function onDragMove(event) {
   if (dragTarget) {
     if (!dragStartPoint) {
@@ -51,10 +53,10 @@ function onDragMove(event) {
         event.global.x - dragStartPoint.x,
         event.global.y - dragStartPoint.y
       );
-      
-  console.log(displacement)
-  console.log(event.movement)
-      if (!dragTarget.orientation.x && !dragTarget.orientation.y) {
+
+      console.log(displacement);
+      console.log(event);
+      if (dragTarget.orientation.equals(new PIXI.Point())) {
         if (Math.abs(displacement.x) > Math.abs(displacement.y)) {
           dragTarget.orientation.x = Math.sign(displacement.x);
         } else {
@@ -68,15 +70,19 @@ function onDragMove(event) {
           x = dragTarget.x_;
           y = dragTarget.y_ + displacement.y;
         }
-        dragTarget.parent.toLocal(
-          new PIXI.Point(x, y),
-          null,
-          dragTarget.position
-        );
+        if (allowDragTo(x, y)) {
+          dragTarget.parent.toLocal(
+            new PIXI.Point(x, y),
+            null,
+            dragTarget.position
+          );
+        }
       }
     }
   }
 }
+
+console.log(PIXI.Extract);
 
 function onDragStart() {
   // store a reference to the data
@@ -106,11 +112,13 @@ function onDragEnd() {
   }
 }
 
+sprites = {};
 fetch("scripts/角色.json")
   .then(response => response.json())
   .then(json => {
-    for (const 角色名 in json) {
-      角色 = json[角色名];
-      创建角色(角色.nb_i, 角色.nb_j, 角色.i, 角色.j, 角色.image_path);
+    for (const 角色 in json) {
+      sprites[角色] = 创建角色(
+        json[角色]
+      );
     }
   });
