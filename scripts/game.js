@@ -18,6 +18,8 @@ function 创建角色(nb_i, nb_j, i, j, image_path) {
   sprite.j = j;
   sprite.x = i * 方块边长;
   sprite.y = j * 方块边长;
+  sprite.width = nb_i * 方块边长;
+  sprite.height = nb_j * 方块边长;
   // sprite.anchor.set(0.5);
 
   sprite.orientation = new PIXI.Point(0);
@@ -49,6 +51,9 @@ function onDragMove(event) {
         event.global.x - dragStartPoint.x,
         event.global.y - dragStartPoint.y
       );
+      
+  console.log(displacement)
+  console.log(event.movement)
       if (!dragTarget.orientation.x && !dragTarget.orientation.y) {
         if (Math.abs(displacement.x) > Math.abs(displacement.y)) {
           dragTarget.orientation.x = Math.sign(displacement.x);
@@ -100,7 +105,6 @@ function onDragEnd() {
     dragTarget = null;
   }
 }
-
 
 fetch("scripts/角色.json")
   .then(response => response.json())
