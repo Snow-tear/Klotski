@@ -1,15 +1,18 @@
 const [nb_i, nb_j] = [4, 5];
 
-方块边长 = 100;
+const 方块边长 = 100;
+
+const width = nb_i * 方块边长;
+const height = nb_j * 方块边长;
 
 const app = new PIXI.Application({
   background: "#CFCFCF",
-  width: nb_i * 方块边长,
-  height: nb_j * 方块边长,
+  width: width,
+  height: height,
 });
 document.body.appendChild(app.view);
 
-function 创建角色({nb_i, nb_j, i, j, image_path}) {
+function 创建角色({ nb_i, nb_j, i, j, image_path }) {
   const sprite = PIXI.Sprite.from(image_path);
 
   sprite.nb_i = nb_i;
@@ -42,7 +45,27 @@ app.stage.hitArea = app.screen;
 app.stage.on("pointerup", onDragEnd);
 app.stage.on("pointerupoutside", onDragEnd);
 
-function allowDragTo(x, y) {return true}
+function allowDragTo(x, y) {
+  if (
+    dragTarget.x < 0 ||
+    dragTarget.y < 0 ||
+    dragTarget.x > width - dragTarget.width ||
+    dragTarget.y > height - dragTarget.height
+  )
+    return false;
+  for (const 角色 in sprites) {
+    if (
+      sprites[角色] !== dragTarget &&
+      dragTarget.x > sprites[角色].x - dragTarget.width &&
+      dragTarget.x < sprites[角色].x + sprites[角色].width &&
+      dragTarget.y > sprites[角色].y - dragTarget.height &&
+      dragTarget.y < sprites[角色].y + sprites[角色].height
+    ) {
+      return false;
+    }
+  }
+  return true;
+}
 
 function onDragMove(event) {
   if (dragTarget) {
@@ -54,8 +77,6 @@ function onDragMove(event) {
         event.global.y - dragStartPoint.y
       );
 
-      console.log(displacement);
-      console.log(event);
       if (dragTarget.orientation.equals(new PIXI.Point())) {
         if (Math.abs(displacement.x) > Math.abs(displacement.y)) {
           dragTarget.orientation.x = Math.sign(displacement.x);
@@ -76,13 +97,13 @@ function onDragMove(event) {
             null,
             dragTarget.position
           );
+        } else {
+          onDragEnd();
         }
       }
     }
   }
 }
-
-console.log(PIXI.Extract);
 
 function onDragStart() {
   // store a reference to the data
@@ -104,8 +125,6 @@ function onDragEnd() {
     dragTarget.alpha = 1;
     dragTarget.x = Math.round(dragTarget.x / 方块边长) * 方块边长;
     dragTarget.y = Math.round(dragTarget.y / 方块边长) * 方块边长;
-    dragTarget.x = dragTarget.x < 0 ? 0 : dragTarget.x;
-    dragTarget.y = dragTarget.y < 0 ? 0 : dragTarget.y;
     dragTarget.orientation = new PIXI.Point(0);
     dragStartPoint = null;
     dragTarget = null;
@@ -117,8 +136,6 @@ fetch("scripts/角色.json")
   .then(response => response.json())
   .then(json => {
     for (const 角色 in json) {
-      sprites[角色] = 创建角色(
-        json[角色]
-      );
+      sprites[角色] = 创建角色(json[角色]);
     }
   });
