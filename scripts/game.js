@@ -50,8 +50,10 @@ function allowDragTo(x, y) {
     dragTarget.y < 0 ||
     dragTarget.x > width - dragTarget.width ||
     dragTarget.y > height - dragTarget.height
-  )
+  ) {
+    console.log("碰壁了");
     return false;
+  }
   for (const 角色 in sprites) {
     if (
       sprites[角色] !== dragTarget &&
@@ -60,6 +62,7 @@ function allowDragTo(x, y) {
       dragTarget.y > sprites[角色].y - dragTarget.height &&
       dragTarget.y < sprites[角色].y + sprites[角色].height
     ) {
+      console.log("撞人了");
       return false;
     }
   }
@@ -70,8 +73,8 @@ let lastDragPoint = null;
 function onDragMove(event) {
   if (!lastDragPoint) lastDragPoint = event.global.clone();
 
-  const del_x = event.global.x - lastDragPoint.x;
-  const del_y = event.global.y - lastDragPoint.y;
+  let del_x = event.global.x - lastDragPoint.x;
+  let del_y = event.global.y - lastDragPoint.y;
   lastDragPoint = event.global.clone();
 
   if (dragTarget.orientation.equals(new PIXI.Point())) {
@@ -92,7 +95,9 @@ function onDragMove(event) {
       x = dragTarget.x;
       y = dragTarget.y + del_y;
     }
+
     if (allowDragTo(x, y)) {
+      console.log("允许拖拽到", x, y);
       dragTarget.parent.toLocal(
         new PIXI.Point(x, y),
         null,
