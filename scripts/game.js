@@ -81,6 +81,10 @@ function onDragMove(event) {
       dragTarget.orientation.y = Math.sign(del_y);
     }
   } else {
+    if (Math.abs(del_x) > 方块边长 / 2)
+      del_x = (方块边长 / 2 - 1) * Math.sign(del_x);
+    if (Math.abs(del_y) > 方块边长 / 2)
+      del_y = (方块边长 / 2 - 1) * Math.sign(del_y);
     if (dragTarget.orientation.x) {
       x = dragTarget.x + del_x;
       y = dragTarget.y;
