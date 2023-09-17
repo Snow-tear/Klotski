@@ -68,38 +68,36 @@ function allowDragTo(x, y) {
 }
 
 function onDragMove(event) {
-  if (dragTarget) {
-    if (!dragStartPoint) {
-      dragStartPoint = { x: event.global.x, y: event.global.y };
-    } else {
-      displacement = new PIXI.Point(
-        event.global.x - dragStartPoint.x,
-        event.global.y - dragStartPoint.y
-      );
+  if (!dragStartPoint) {
+    dragStartPoint = { x: event.global.x, y: event.global.y };
+  } else {
+    displacement = new PIXI.Point(
+      event.global.x - dragStartPoint.x,
+      event.global.y - dragStartPoint.y
+    );
 
-      if (dragTarget.orientation.equals(new PIXI.Point())) {
-        if (Math.abs(displacement.x) > Math.abs(displacement.y)) {
-          dragTarget.orientation.x = Math.sign(displacement.x);
-        } else {
-          dragTarget.orientation.y = Math.sign(displacement.y);
-        }
+    if (dragTarget.orientation.equals(new PIXI.Point())) {
+      if (Math.abs(displacement.x) > Math.abs(displacement.y)) {
+        dragTarget.orientation.x = Math.sign(displacement.x);
       } else {
-        if (dragTarget.orientation.x) {
-          x = dragTarget.x_ + displacement.x;
-          y = dragTarget.y_;
-        } else {
-          x = dragTarget.x_;
-          y = dragTarget.y_ + displacement.y;
-        }
-        if (allowDragTo(x, y)) {
-          dragTarget.parent.toLocal(
-            new PIXI.Point(x, y),
-            null,
-            dragTarget.position
-          );
-        } else {
-          onDragEnd();
-        }
+        dragTarget.orientation.y = Math.sign(displacement.y);
+      }
+    } else {
+      if (dragTarget.orientation.x) {
+        x = dragTarget.x_ + displacement.x;
+        y = dragTarget.y_;
+      } else {
+        x = dragTarget.x_;
+        y = dragTarget.y_ + displacement.y;
+      }
+      if (allowDragTo(x, y)) {
+        dragTarget.parent.toLocal(
+          new PIXI.Point(x, y),
+          null,
+          dragTarget.position
+        );
+      } else {
+        onDragEnd();
       }
     }
   }
@@ -110,13 +108,15 @@ function onDragStart() {
   // the reason for this is because of multitouch
   // we want to track the movement of this particular touch
   // this.data = event.data;
-  this.alpha = 0.5;
-  this.x_ = this.x;
-  this.y_ = this.y;
+  if (!dragTarget) {
+    this.alpha = 0.5;
+    this.x_ = this.x;
+    this.y_ = this.y;
 
-  dragTarget = this;
+    dragTarget = this;
 
-  app.stage.on("pointermove", onDragMove);
+    app.stage.on("pointermove", onDragMove);
+  }
 }
 
 function onDragEnd() {
