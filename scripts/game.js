@@ -20,6 +20,8 @@ function 创建角色(nb_i, nb_j, i, j, image_path) {
   sprite.y = (j + nb_j / 2) * 方块边长;
   sprite.anchor.set(0.5);
 
+  sprite.orientation = new PIXI.Point(0);
+
   sprite.eventMode = "static";
   sprite.cursor = "pointer";
   sprite.on("pointerdown", onDragStart, sprite);
@@ -31,6 +33,7 @@ function 创建角色(nb_i, nb_j, i, j, image_path) {
 }
 
 let dragTarget = null;
+let dragStartPoint = null;
 
 app.stage.eventMode = "static";
 app.stage.hitArea = app.screen;
@@ -39,8 +42,28 @@ app.stage.on("pointerupoutside", onDragEnd);
 
 function onDragMove(event) {
   if (dragTarget) {
-    console.log(event)
-    dragTarget.parent.toLocal(event.global, null, dragTarget.position);
+    if (!dragStartPoint) {
+      dragStartPoint = { x: event.global.x, y: event.global.y };
+    } else {
+      displacement = new PIXI.Point(
+        event.global.x - dragStartPoint.x,
+        event.global.y - dragStartPoint.y
+      );
+      if (!dragTarget.orientation.x && !dragTarget.orientation.y) {
+        if (Math.abs(displacement.x) > Math.abs(displacement.y)) {
+          dragTarget.orientation.x = Math.sign(displacement.x);
+        } else {
+          dragTarget.orientation.y = Math.sign(displacement.y);
+        }
+      } else {
+        if (dragTarget.orientation.x) {
+          event.global.y = dragTarget.y_ + displacement.y;
+        } else {
+          event.global.x = dragTarget.x_ + displacement.x;
+        }
+        dragTarget.parent.toLocal(event.global, null, dragTarget.position);
+      }
+    }
   }
 }
 
@@ -50,7 +73,11 @@ function onDragStart() {
   // we want to track the movement of this particular touch
   // this.data = event.data;
   this.alpha = 0.5;
+  this.x_ = this.x;
+  this.y_ = this.y;
+
   dragTarget = this;
+
   app.stage.on("pointermove", onDragMove);
 }
 
@@ -58,6 +85,8 @@ function onDragEnd() {
   if (dragTarget) {
     app.stage.off("pointermove", onDragMove);
     dragTarget.alpha = 1;
+    dragTarget.orientation = new PIXI.Point(0);
+    dragStartPoint = null;
     dragTarget = null;
   }
 }
