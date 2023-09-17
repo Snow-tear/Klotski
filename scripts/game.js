@@ -38,7 +38,6 @@ function 创建角色({ nb_i, nb_j, i, j, image_path }) {
 }
 
 let dragTarget = null;
-let dragStartPoint = null;
 
 app.stage.eventMode = "static";
 app.stage.hitArea = app.screen;
