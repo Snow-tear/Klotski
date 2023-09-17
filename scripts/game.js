@@ -125,6 +125,9 @@ function onDragEnd() {
     dragTarget.alpha = 1;
     dragTarget.x = Math.round(dragTarget.x / 方块边长) * 方块边长;
     dragTarget.y = Math.round(dragTarget.y / 方块边长) * 方块边长;
+    if (sprites.曹操.x == 1 * 方块边长 && sprites.曹操.y == 3 * 方块边长) {
+      alert("你赢了！");
+    }
     dragTarget.orientation = new PIXI.Point(0);
     dragStartPoint = null;
     dragTarget = null;
