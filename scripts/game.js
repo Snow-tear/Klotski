@@ -46,23 +46,21 @@ app.stage.on("pointerupoutside", onDragEnd);
 
 function allowDragTo(x, y) {
   if (
-    dragTarget.x < 0 ||
-    dragTarget.y < 0 ||
-    dragTarget.x > width - dragTarget.width ||
-    dragTarget.y > height - dragTarget.height
+    x < 0 ||
+    y < 0 ||
+    x > width - dragTarget.width ||
+    y > height - dragTarget.height
   ) {
-    console.log("碰壁了");
     return false;
   }
   for (const 角色 in sprites) {
     if (
       sprites[角色] !== dragTarget &&
-      dragTarget.x > sprites[角色].x - dragTarget.width &&
-      dragTarget.x < sprites[角色].x + sprites[角色].width &&
-      dragTarget.y > sprites[角色].y - dragTarget.height &&
-      dragTarget.y < sprites[角色].y + sprites[角色].height
+      x > sprites[角色].x - dragTarget.width &&
+      x < sprites[角色].x + sprites[角色].width &&
+      y > sprites[角色].y - dragTarget.height &&
+      y < sprites[角色].y + sprites[角色].height
     ) {
-      console.log("撞人了");
       return false;
     }
   }
