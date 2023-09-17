@@ -68,37 +68,30 @@ function allowDragTo(x, y) {
 }
 
 function onDragMove(event) {
-  if (!dragStartPoint) {
-    dragStartPoint = { x: event.global.x, y: event.global.y };
-  } else {
-    displacement = new PIXI.Point(
-      event.global.x - dragStartPoint.x,
-      event.global.y - dragStartPoint.y
-    );
+  console.log(event.movement);
 
-    if (dragTarget.orientation.equals(new PIXI.Point())) {
-      if (Math.abs(displacement.x) > Math.abs(displacement.y)) {
-        dragTarget.orientation.x = Math.sign(displacement.x);
-      } else {
-        dragTarget.orientation.y = Math.sign(displacement.y);
-      }
+  if (dragTarget.orientation.equals(new PIXI.Point())) {
+    if (Math.abs(event.movement.x) > Math.abs(event.movement.y)) {
+      dragTarget.orientation.x = Math.sign(event.movement.x);
     } else {
-      if (dragTarget.orientation.x) {
-        x = dragTarget.x_ + displacement.x;
-        y = dragTarget.y_;
-      } else {
-        x = dragTarget.x_;
-        y = dragTarget.y_ + displacement.y;
-      }
-      if (allowDragTo(x, y)) {
-        dragTarget.parent.toLocal(
-          new PIXI.Point(x, y),
-          null,
-          dragTarget.position
-        );
-      } else {
-        onDragEnd();
-      }
+      dragTarget.orientation.y = Math.sign(event.movement.y);
+    }
+  } else {
+    if (dragTarget.orientation.x) {
+      x = dragTarget.x + event.movement.x;
+      y = dragTarget.y;
+    } else {
+      x = dragTarget.x;
+      y = dragTarget.y + event.movement.y;
+    }
+    if (allowDragTo(x, y)) {
+      dragTarget.parent.toLocal(
+        new PIXI.Point(x, y),
+        null,
+        dragTarget.position
+      );
+    } else {
+      onDragEnd();
     }
   }
 }
@@ -110,9 +103,6 @@ function onDragStart() {
   // this.data = event.data;
   if (!dragTarget) {
     this.alpha = 0.5;
-    this.x_ = this.x;
-    this.y_ = this.y;
-
     dragTarget = this;
 
     app.stage.on("pointermove", onDragMove);
