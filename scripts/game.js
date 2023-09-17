@@ -57,11 +57,17 @@ function onDragMove(event) {
         }
       } else {
         if (dragTarget.orientation.x) {
-          event.global.y = dragTarget.y_ + displacement.y;
+          x = dragTarget.x_ + displacement.x;
+          y = dragTarget.y_;
         } else {
-          event.global.x = dragTarget.x_ + displacement.x;
+          x = dragTarget.x_;
+          y = dragTarget.y_ + displacement.y;
         }
-        dragTarget.parent.toLocal(event.global, null, dragTarget.position);
+        dragTarget.parent.toLocal(
+          new PIXI.Point(x, y),
+          null,
+          dragTarget.position
+        );
       }
     }
   }
