@@ -29,3 +29,8 @@ canvas {
 a:hover {
   color: #fb98fbbf;
 }
+
+.foot {
+  font-style: italic;
+  font-size: small;
+}
