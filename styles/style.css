@@ -1,0 +1,24 @@
+h1,
+p {
+  text-align: center;
+}
+
+h1 {
+  color: whitesmoke;
+  background-color: darkgreen;
+  margin: 0;
+  padding: 30px 0;
+}
+
+body {
+  background-color: rgba(152, 251, 152, 0.226);
+  padding-top: 0;
+}
+
+#game {
+  display: flex;
+}
+
+canvas {
+  margin: auto;
+}
