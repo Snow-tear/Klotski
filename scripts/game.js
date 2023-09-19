@@ -12,6 +12,9 @@ const app = new PIXI.Application({
 });
 document.body.appendChild(app.view);
 
+let time = 0;
+let timer = null;
+
 function 创建角色({ nb_i, nb_j, i, j, image_path }) {
   const sprite = PIXI.Sprite.from(image_path);
 
@@ -95,7 +98,6 @@ function onDragMove(event) {
     }
 
     if (allowDragTo(x, y)) {
-      console.log("允许拖拽到", x, y);
       dragTarget.parent.toLocal(
         new PIXI.Point(x, y),
         null,
@@ -118,6 +120,10 @@ function onDragStart() {
     lastDragPoint = null;
     app.stage.on("pointermove", onDragMove);
   }
+
+  if (!time) {
+    chronoStart();
+  }
 }
 
 function onDragEnd() {
@@ -127,12 +133,19 @@ function onDragEnd() {
     dragTarget.x = Math.round(dragTarget.x / 方块边长) * 方块边长;
     dragTarget.y = Math.round(dragTarget.y / 方块边长) * 方块边长;
     if (sprites.曹操.x == 1 * 方块边长 && sprites.曹操.y == 3 * 方块边长) {
-      alert("你赢了！");
+      alert(`你赢了！用时${time / 100}秒`);
+      clearInterval(timer);
     }
     dragTarget.orientation = new PIXI.Point(0);
     dragStartPoint = null;
     dragTarget = null;
   }
+}
+
+function chronoStart() {
+  timer = setInterval(() => {
+    document.getElementById("clock").textContent = time++ / 100;
+  }, 10);
 }
 
 sprites = {};
