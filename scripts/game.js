@@ -10,7 +10,7 @@ const app = new PIXI.Application({
   width: width,
   height: height,
 });
-document.body.appendChild(app.view);
+document.getElementById("game").appendChild(app.view);
 
 let time = 0;
 let timer = null;
