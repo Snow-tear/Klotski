@@ -14,7 +14,7 @@ h1 {
 }
 
 body {
-  background-color: #69b0ac49;
+  background-color: #efefef;
   padding-top: 0;
 }
 
@@ -33,4 +33,10 @@ a:hover {
 .foot {
   font-style: italic;
   font-size: small;
+}
+
+#背景 {
+  color: rgb(255, 127, 127);
+  width: 100%;
+  /* opacity: 0.5; */
 }
