@@ -1,12 +1,12 @@
 let canvas = document.getElementById("背景");
 const [bg_width, bg_height] = [
   (canvas.width = document.body.clientWidth),
-  (canvas.height = document.body.clientHeight),
+  (canvas.height = 200),
 ];
 console.log(bg_width, bg_height);
 let ctx = canvas.getContext("2d");
 
-let img_nb = 150;
+let img_nb = 50;
 背景添加方块(img_nb);
 function 背景添加方块(img_nb) {
   if (img_nb) {
