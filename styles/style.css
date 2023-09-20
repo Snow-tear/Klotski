@@ -38,7 +38,7 @@ a:hover {
 #背景 {
   color: rgb(255, 127, 127);
   width: 100%;
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
   z-index: -1;
