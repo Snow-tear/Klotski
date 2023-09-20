@@ -58,8 +58,8 @@ a:hover {
   /* opacity: 0.5; */
 }
 
-
-.icon{
-    vertical-align: middle;
-    height: 20px;;
+.icon {
+  vertical-align: middle;
+  height: 20px;
+  border: 1px solid white;
 }
