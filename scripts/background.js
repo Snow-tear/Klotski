@@ -1,7 +1,7 @@
 let canvas = document.getElementById("背景");
 const [bg_width, bg_height] = [
   (canvas.width = document.body.clientWidth),
-  (canvas.height = 200),
+  (canvas.height = document.body.clientHeight),
 ];
 console.log(bg_width, bg_height);
 let ctx = canvas.getContext("2d");
