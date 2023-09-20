@@ -1,13 +1,15 @@
 let canvas = document.getElementById("背景");
-const [bg_width, bg_height] = [
-  (canvas.width = document.body.clientWidth),
-  (canvas.height = document.body.clientHeight),
-];
 let ctx = canvas.getContext("2d");
+let bg_width, bg_height;
 
-let 背景方块数 = Math.floor((bg_width * bg_height) / 8000);
-console.log(背景方块数);
-添加背景方块(背景方块数);
+function 绘制背景() {
+  bg_width = canvas.width = document.body.clientWidth;
+  bg_height = canvas.height = document.body.clientHeight;
+  let 背景方块数 = Math.floor((bg_width * bg_height) / 8000);
+  console.log(背景方块数);
+  添加背景方块(背景方块数);
+}
+
 function 添加背景方块(背景方块数) {
   if (背景方块数) {
     let img = new Image();
@@ -36,3 +38,6 @@ function 添加背景方块(背景方块数) {
     };
   }
 }
+
+window.onload = 绘制背景;
+window.onresize = 绘制背景;
