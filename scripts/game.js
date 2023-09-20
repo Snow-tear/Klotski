@@ -24,8 +24,8 @@ function 创建角色({ nb_i, nb_j, i, j, image_path }) {
   sprite.nb_j = nb_j;
   sprite.i = i;
   sprite.j = j;
-  sprite.x = i * 方块边长;
-  sprite.y = j * 方块边长;
+  sprite.x = sprite.x_ = i * 方块边长;
+  sprite.y = sprite.y_ = j * 方块边长;
   sprite.width = nb_i * 方块边长;
   sprite.height = nb_j * 方块边长;
   // sprite.anchor.set(0.5);
@@ -136,7 +136,11 @@ function onDragEnd() {
     dragTarget.x = Math.round(dragTarget.x / 方块边长) * 方块边长;
     dragTarget.y = Math.round(dragTarget.y / 方块边长) * 方块边长;
 
-    document.getElementById("step").textContent = ++step;
+    if (dragTarget.x !== dragTarget.x_ || dragTarget.y !== dragTarget.y_) {
+      document.getElementById("step").textContent = ++step;
+      dragTarget.x_ = dragTarget.x;
+      dragTarget.y_ = dragTarget.y;
+    }
 
     if (sprites.曹操.x == 1 * 方块边长 && sprites.曹操.y == 3 * 方块边长) {
       alert(`你赢了！用时${time / 100}秒，${step}步`);
