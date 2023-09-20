@@ -6,10 +6,10 @@ const [bg_width, bg_height] = [
 console.log(bg_width, bg_height);
 let ctx = canvas.getContext("2d");
 
-let img_nb = 50;
-背景添加方块(img_nb);
-function 背景添加方块(img_nb) {
-  if (img_nb) {
+let 背景方块数 = 50;
+添加背景方块(背景方块数);
+function 添加背景方块(背景方块数) {
+  if (背景方块数) {
     let img = new Image();
     img.src = [
       "images/曹操.png",
@@ -24,15 +24,15 @@ function 背景添加方块(img_nb) {
       ctx.save();
 
       const [x, y] = [bg_width * Math.random(), bg_height * Math.random()];
-      ctx.globalAlpha = Math.random()*0.7;
+      ctx.globalAlpha = Math.random() * 0.7;
       ctx.translate(x, y);
       ctx.rotate(Math.PI * Math.random());
       const k = Math.random() * 0.5;
       ctx.drawImage(img, 0, 0, img.width * k, img.height * k);
 
       ctx.restore();
-      img_nb--;
-      背景添加方块(img_nb);
+      背景方块数--;
+      添加背景方块(背景方块数);
     };
   }
 }
