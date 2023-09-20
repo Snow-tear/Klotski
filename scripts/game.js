@@ -141,7 +141,11 @@ function onDragEnd() {
     }
 
     if (sprites.曹操.x == 1 * 方块边长 && sprites.曹操.y == 3 * 方块边长) {
-      alert(`你赢了！用时${time / 100}秒，${step}步`);
+      const username = prompt(
+        `你赢了！用时${time / 100}秒，${step}步。\n输入昵称来添加至排行榜`,
+        "name used on score board"
+      );
+      if (username) add_record(username, time / 100, step);
       clearInterval(timer);
     }
 
