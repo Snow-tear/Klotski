@@ -6,7 +6,7 @@ const [bg_width, bg_height] = [
 console.log(bg_width, bg_height);
 let ctx = canvas.getContext("2d");
 
-let 背景方块数 = 50;
+let 背景方块数 = 150;
 添加背景方块(背景方块数);
 function 添加背景方块(背景方块数) {
   if (背景方块数) {
