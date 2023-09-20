@@ -3,10 +3,10 @@ const [bg_width, bg_height] = [
   (canvas.width = document.body.clientWidth),
   (canvas.height = document.body.clientHeight),
 ];
-console.log(bg_width, bg_height);
 let ctx = canvas.getContext("2d");
 
-let 背景方块数 = 150;
+let 背景方块数 = Math.floor((bg_width * bg_height) / 8000);
+console.log(背景方块数);
 添加背景方块(背景方块数);
 function 添加背景方块(背景方块数) {
   if (背景方块数) {
