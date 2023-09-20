@@ -22,8 +22,6 @@ function 创建角色({ nb_i, nb_j, i, j, image_path }) {
 
   sprite.nb_i = nb_i;
   sprite.nb_j = nb_j;
-  sprite.i = i;
-  sprite.j = j;
   sprite.x = sprite.x_ = i * 方块边长;
   sprite.y = sprite.y_ = j * 方块边长;
   sprite.width = nb_i * 方块边长;
