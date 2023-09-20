@@ -15,6 +15,8 @@ document.getElementById("game").appendChild(app.view);
 let time = 0;
 let timer = null;
 
+let step = 0;
+
 function 创建角色({ nb_i, nb_j, i, j, image_path }) {
   const sprite = PIXI.Sprite.from(image_path);
 
@@ -130,12 +132,17 @@ function onDragEnd() {
   if (dragTarget) {
     app.stage.off("pointermove", onDragMove);
     dragTarget.alpha = 1;
+
     dragTarget.x = Math.round(dragTarget.x / 方块边长) * 方块边长;
     dragTarget.y = Math.round(dragTarget.y / 方块边长) * 方块边长;
+
+    document.getElementById("step").textContent = ++step;
+
     if (sprites.曹操.x == 1 * 方块边长 && sprites.曹操.y == 3 * 方块边长) {
-      alert(`你赢了！用时${time / 100}秒`);
+      alert(`你赢了！用时${time / 100}秒，${step}步`);
       clearInterval(timer);
     }
+
     dragTarget.orientation = new PIXI.Point(0);
     dragStartPoint = null;
     dragTarget = null;
@@ -144,7 +151,7 @@ function onDragEnd() {
 
 function chronoStart() {
   timer = setInterval(() => {
-    document.getElementById("clock").textContent = time++ / 100;
+    document.getElementById("clock").textContent = (time++ / 100).toFixed(2);
   }, 10);
 }
 
