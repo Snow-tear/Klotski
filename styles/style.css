@@ -33,6 +33,17 @@ a:hover {
 .foot {
   font-style: italic;
   font-size: small;
+  text-align: center;
+}
+
+.文本内容 {
+  text-align: center;
+  margin-top: 10px;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: #0961484f;
+  font-weight: bold;
+  color: white;
 }
 
 #背景 {
