@@ -90,6 +90,12 @@ function autoGrid(x) {
   return x;
 }
 
+function restrict(del_x) {
+  if (Math.abs(del_x) > 方块边长 / 2)
+    return (方块边长 / 2 - 1) * Math.sign(del_x);
+  return del_x;
+}
+
 function onDragMove(event) {
   if (!lastDragPoint) lastDragPoint = event.global.clone();
 
@@ -97,10 +103,8 @@ function onDragMove(event) {
   let del_y = event.global.y - lastDragPoint.y;
   lastDragPoint = event.global.clone();
 
-  if (Math.abs(del_x) > 方块边长 / 2)
-    del_x = (方块边长 / 2 - 1) * Math.sign(del_x);
-  if (Math.abs(del_y) > 方块边长 / 2)
-    del_y = (方块边长 / 2 - 1) * Math.sign(del_y);
+  del_x = restrict(del_x);
+  del_y = restrict(del_y);
 
   let x = dragTarget.x + del_x;
   let y = dragTarget.y + del_y;
@@ -112,10 +116,7 @@ function onDragMove(event) {
   )
     dragTarget.canAutoGrid = true;
 
-  console.log(dragTarget.canAutoGrid);
-
   if (allowDragTo(x, dragTarget.y)) dragTarget.x = autoGrid(x);
-
   if (allowDragTo(dragTarget.x, y)) dragTarget.y = autoGrid(y);
 }
 
