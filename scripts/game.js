@@ -28,6 +28,8 @@ function 创建角色({ nb_i, nb_j, i, j, image_path }) {
   sprite.height = nb_j * 方块边长;
   // sprite.anchor.set(0.5);
 
+  sprite.canAutoGrid = false; //在行进过程中是否允许微量自动对齐（为了转角）
+
   sprite.eventMode = "static";
   sprite.cursor = "pointer";
   sprite.on("pointerdown", onDragStart, sprite);
@@ -68,6 +70,10 @@ function allowDragTo(x, y) {
   return true;
 }
 
+function nearestGridPosition(x) {
+  return Math.round(x / 方块边长) * 方块边长;
+}
+
 let lastDragPoint = null;
 function onDragMove(event) {
   if (!lastDragPoint) lastDragPoint = event.global.clone();
@@ -81,16 +87,36 @@ function onDragMove(event) {
   if (Math.abs(del_y) > 方块边长 / 2)
     del_y = (方块边长 / 2 - 1) * Math.sign(del_y);
 
-  if (allowDragTo(dragTarget.x + del_x, dragTarget.y)) {
+  let x = dragTarget.x + del_x;
+  let y = dragTarget.y + del_y;
+
+  const tolerance = 3;
+
+  if (
+    !dragTarget.canAutoGrid &&
+    (Math.abs(nearestGridPosition(x) - x) > tolerance ||
+      Math.abs(nearestGridPosition(y) - y) > tolerance)
+  )
+    dragTarget.canAutoGrid = true;
+
+  if (dragTarget.canAutoGrid) {
+    if (Math.abs(nearestGridPosition(x) - x) <= tolerance)
+      x = nearestGridPosition(x);
+    if (Math.abs(nearestGridPosition(y) - y) <= tolerance)
+      y = nearestGridPosition(y);
+    dragTarget.canAutoGrid = false;
+  }
+
+  if (allowDragTo(x, dragTarget.y)) {
     dragTarget.parent.toLocal(
-      new PIXI.Point(dragTarget.x + del_x, dragTarget.y),
+      new PIXI.Point(x, dragTarget.y),
       null,
       dragTarget.position
     );
   }
-  if (allowDragTo(dragTarget.x, dragTarget.y + del_y)) {
+  if (allowDragTo(dragTarget.x, y)) {
     dragTarget.parent.toLocal(
-      new PIXI.Point(dragTarget.x, dragTarget.y + del_y),
+      new PIXI.Point(dragTarget.x, y),
       null,
       dragTarget.position
     );
@@ -137,6 +163,7 @@ function onDragEnd() {
       clearInterval(timer);
     }
 
+    dragTarget.canAutoGrid = false;
     dragStartPoint = null;
     dragTarget = null;
   }
