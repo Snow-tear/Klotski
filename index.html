@@ -77,17 +77,21 @@
       <caption>
         排行榜
       </caption>
-      <tr>
-        <th>排名</th>
-        <th onclick='show_records(sort = "name")'>昵称</th>
-        <th onclick='show_records(sort = "time")'>用时</th>
-        <th onclick='show_records(sort = "step")'>步数</th>
-        <th onclick='show_records(sort = "date")'>日期</th>
-      </tr>
-      <tr>
-        <td>排行榜加载中</td>
-        <td>The score board is loading</td>
-      </tr>
+      <thead>
+        <tr>
+          <th>排名</th>
+          <th onclick='show_records(sort = "name")'>昵称</th>
+          <th onclick='show_records(sort = "time")'>用时</th>
+          <th onclick='show_records(sort = "step")'>步数</th>
+          <th onclick='show_records(sort = "date")'>日期</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>排行榜加载中</td>
+          <td>The score board is loading</td>
+        </tr>
+      </tbody>
     </table>
     <p class="foot">
       Cette application est écrite par

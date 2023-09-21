@@ -26,11 +26,11 @@ function get_records(recall) {
 function show_records(sort = "time") {
   if (!records) return -1;
   sort_records(records, sort);
-  const table = document.getElementById("ranking");
+  const tbody = document.querySelector('#ranking tbody');
   $("#ranking tr:not(:first)").remove();
   for (let i in records) {
     let tr = document.createElement("tr");
-    table.appendChild(tr);
+    tbody.appendChild(tr);
 
     let record = [+i + 1].concat(records[i].slice(0, 3));
     record.push(timestamp_to_date(records[i][3]));
