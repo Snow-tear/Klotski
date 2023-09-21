@@ -1,5 +1,7 @@
 const [nb_i, nb_j] = [4, 5];
 
+let 关卡;
+
 const 方块边长 = 100;
 
 const width = nb_i * 方块边长;
@@ -16,10 +18,10 @@ const app = new PIXI.Application({
 });
 document.getElementById("game").appendChild(app.view);
 
-let time = 0;
-let timer = null;
+let time;
+let timer;
 
-let step = 0;
+let step;
 
 function 创建角色({ nb_i, nb_j, i, j, image_path }) {
   const sprite = PIXI.Sprite.from(image_path);
@@ -173,11 +175,24 @@ function chronoStart() {
   }, 10);
 }
 
-sprites = {};
-fetch("scripts/角色.json")
-  .then(response => response.json())
-  .then(json => {
-    for (const 角色 in json) {
-      sprites[角色] = 创建角色(json[角色]);
-    }
-  });
+let sprites;
+
+function startGame(关卡) {
+  fetch("scripts/角色.json")
+    .then(response => response.json())
+    .then(关卡配置 => {
+      let 角色配置 = 关卡配置[关卡];
+      app.stage.removeChildren();
+      sprites = {};
+      time = 0;
+      document.getElementById("clock").textContent = time.toFixed(2);
+      if (timer) clearInterval(timer);
+      step = 0;
+      document.getElementById("step").textContent = step;
+      for (const 角色 in 角色配置) {
+        sprites[角色] = 创建角色(角色配置[角色]);
+      }
+    });
+}
+
+startGame("横刀立马");
