@@ -72,3 +72,8 @@ table th {
 table th:not(:first-child):hover {
   color: #fb98fbbf;
 }
+
+caption {
+  color: #583b58a4;
+  font-size: x-large;
+}
