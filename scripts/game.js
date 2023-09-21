@@ -114,14 +114,9 @@ function onDragMove(event) {
 
   console.log(dragTarget.canAutoGrid);
 
-  if (allowDragTo(x, dragTarget.y)) {
-    x = autoGrid(x);
-    dragTarget.x = x;
-  }
-  if (allowDragTo(dragTarget.x, y)) {
-    y = autoGrid(y);
-    dragTarget.y = y;
-  }
+  if (allowDragTo(x, dragTarget.y)) dragTarget.x = autoGrid(x);
+
+  if (allowDragTo(dragTarget.x, y)) dragTarget.y = autoGrid(y);
 }
 
 function onDragStart() {
