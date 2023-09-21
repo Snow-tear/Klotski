@@ -5,7 +5,7 @@ const 方块边长 = 100;
 const width = nb_i * 方块边长;
 const height = nb_j * 方块边长;
 
-const tolerance = 5;
+const tolerance = 5; //自动吸附长度（为了实现转角）
 
 let lastDragPoint = null;
 
