@@ -64,11 +64,11 @@ a:hover {
   border: 1px solid white;
 }
 
-table tbody {
+table th {
   color: #3c193cbf;
   font-size: large;
 }
 
-table tbody tr :hover {
+table th:not(:first-child):hover {
   color: #fb98fbbf;
 }
