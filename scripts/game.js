@@ -28,8 +28,6 @@ function 创建角色({ nb_i, nb_j, i, j, image_path }) {
   sprite.height = nb_j * 方块边长;
   // sprite.anchor.set(0.5);
 
-  sprite.orientation = new PIXI.Point(0);
-
   sprite.eventMode = "static";
   sprite.cursor = "pointer";
   sprite.on("pointerdown", onDragStart, sprite);
@@ -78,34 +76,24 @@ function onDragMove(event) {
   let del_y = event.global.y - lastDragPoint.y;
   lastDragPoint = event.global.clone();
 
-  if (dragTarget.orientation.equals(new PIXI.Point())) {
-    if (Math.abs(del_x) > Math.abs(del_y)) {
-      dragTarget.orientation.x = Math.sign(del_x);
-    } else {
-      dragTarget.orientation.y = Math.sign(del_y);
-    }
-  } else {
-    if (Math.abs(del_x) > 方块边长 / 2)
-      del_x = (方块边长 / 2 - 1) * Math.sign(del_x);
-    if (Math.abs(del_y) > 方块边长 / 2)
-      del_y = (方块边长 / 2 - 1) * Math.sign(del_y);
-    if (dragTarget.orientation.x) {
-      x = dragTarget.x + del_x;
-      y = dragTarget.y;
-    } else {
-      x = dragTarget.x;
-      y = dragTarget.y + del_y;
-    }
+  if (Math.abs(del_x) > 方块边长 / 2)
+    del_x = (方块边长 / 2 - 1) * Math.sign(del_x);
+  if (Math.abs(del_y) > 方块边长 / 2)
+    del_y = (方块边长 / 2 - 1) * Math.sign(del_y);
 
-    if (allowDragTo(x, y)) {
-      dragTarget.parent.toLocal(
-        new PIXI.Point(x, y),
-        null,
-        dragTarget.position
-      );
-    } else {
-      onDragEnd();
-    }
+  if (allowDragTo(dragTarget.x + del_x, dragTarget.y)) {
+    dragTarget.parent.toLocal(
+      new PIXI.Point(dragTarget.x + del_x, dragTarget.y),
+      null,
+      dragTarget.position
+    );
+  }
+  if (allowDragTo(dragTarget.x, dragTarget.y + del_y)) {
+    dragTarget.parent.toLocal(
+      new PIXI.Point(dragTarget.x, dragTarget.y + del_y),
+      null,
+      dragTarget.position
+    );
   }
 }
 
@@ -149,7 +137,6 @@ function onDragEnd() {
       clearInterval(timer);
     }
 
-    dragTarget.orientation = new PIXI.Point(0);
     dragStartPoint = null;
     dragTarget = null;
   }
