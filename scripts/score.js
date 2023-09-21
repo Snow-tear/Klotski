@@ -1,5 +1,5 @@
 let url =
-  "https://script.google.com/macros/s/AKfycbxR_K3DpWG6kwB13UIbsyE_QWvNSpeswtX0niQFjMG_tBqLe2S9gZMM8VUKz6nJzlB-HA/exec";
+  "https://script.google.com/macros/s/AKfycbzcFU6v7DQmqeGLqBB-vi2LJ7uKdtkLeIUHx0Urr71O4HqzGtHE9ZP5jms_mguqxKhgjA/exec";
 let records = null;
 
 function add_record(name, time, step) {
@@ -31,7 +31,11 @@ function show_records(sort = "time") {
   for (let i in records) {
     let tr = document.createElement("tr");
     table.appendChild(tr);
-    for (let value of [+i + 1].concat(records[i])) {
+
+    let record = [+i + 1].concat(records[i].slice(0, 3));
+    record.push(timestamp_to_date(records[i][3]));
+
+    for (let value of record) {
       let td = document.createElement("td");
       td.innerHTML = value;
       tr.appendChild(td);
@@ -52,7 +56,24 @@ function sort_records(records, sort) {
   } else if (sort === "step") {
     records.sort((a, b) => a[2] - b[2]);
     console.log(records);
+  } else if (sort === "date") {
+    records.sort((a, b) => b[3] - a[3]);
+    console.log(records);
   }
+}
+
+function timestamp_to_date(timestamp) {
+  const date = new Date(timestamp); // 参数需要毫秒数，所以这里将秒数乘于 1000
+  Y = date.getFullYear() + "-";
+  M =
+    (date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1) + "-";
+  D = date.getDate() + " ";
+  h = date.getHours() + ":";
+  m = date.getMinutes() + ":";
+  s = date.getSeconds();
+  return Y + M + D + h + m + s;
 }
 
 get_records(show_records);
