@@ -40,13 +40,6 @@ function show_records(records) {
   console.log(records);
   records.sort((a, b) => a[1] - b[1]);
   const table = document.getElementById("ranking");
-  table.innerHTML = `
-      <tr>
-        <td>排名</td>
-        <td>昵称</td>
-        <td>用时</td>
-        <td>步数</td>
-      </tr>`;
   let r = 1;
   for (let record of records) {
     let tr = document.createElement("tr");
