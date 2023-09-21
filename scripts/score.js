@@ -39,10 +39,7 @@ function show_records(sort = "time") {
   for (let i in records) {
     let tr = document.createElement("tr");
     table.appendChild(tr);
-    let td = document.createElement("td");
-    td.innerHTML = +i + 1;
-    tr.appendChild(td);
-    for (let value of records[i]) {
+    for (let value of [+i + 1].concat(records[i])) {
       let td = document.createElement("td");
       td.innerHTML = value;
       tr.appendChild(td);
