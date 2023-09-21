@@ -7,6 +7,8 @@ const height = nb_j * 方块边长;
 
 const tolerance = 5;
 
+let lastDragPoint = null;
+
 const app = new PIXI.Application({
   background: "#CFCFCF",
   width: width,
@@ -76,7 +78,18 @@ function nearestGridPosition(x) {
   return Math.round(x / 方块边长) * 方块边长;
 }
 
-let lastDragPoint = null;
+function autoGrid(x) {
+  if (
+    dragTarget.canAutoGrid &&
+    Math.abs(nearestGridPosition(x) - x) <= tolerance &&
+    x !== nearestGridPosition(x)
+  ) {
+    dragTarget.canAutoGrid = false;
+    return nearestGridPosition(x);
+  }
+  return x;
+}
+
 function onDragMove(event) {
   if (!lastDragPoint) lastDragPoint = event.global.clone();
 
@@ -102,14 +115,7 @@ function onDragMove(event) {
   console.log(dragTarget.canAutoGrid);
 
   if (allowDragTo(x, dragTarget.y)) {
-    if (
-      dragTarget.canAutoGrid &&
-      Math.abs(nearestGridPosition(x) - x) <= tolerance &&
-      x !== nearestGridPosition(x)
-    ) {
-      x = nearestGridPosition(x);
-      dragTarget.canAutoGrid = false;
-    }
+    x = autoGrid(x);
     dragTarget.parent.toLocal(
       new PIXI.Point(x, dragTarget.y),
       null,
@@ -117,14 +123,7 @@ function onDragMove(event) {
     );
   }
   if (allowDragTo(dragTarget.x, y)) {
-    if (
-      dragTarget.canAutoGrid &&
-      Math.abs(nearestGridPosition(y) - y) <= tolerance &&
-      y !== nearestGridPosition(y)
-    ) {
-      y = nearestGridPosition(y);
-      dragTarget.canAutoGrid = false;
-    }
+    y = autoGrid(y);
     dragTarget.parent.toLocal(
       new PIXI.Point(dragTarget.x, y),
       null,
