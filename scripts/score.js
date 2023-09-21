@@ -6,12 +6,7 @@ let records = null;
 function add_record(name, time, step) {
   $.ajax({
     url: url,
-    data: {
-      fun: "add_record",
-      name: name,
-      time: time,
-      step: step,
-    },
+    data: { fun: "add_record", name: name, time: time, step: step },
     success: response => {
       get_records(show_records);
     },
@@ -21,9 +16,7 @@ function add_record(name, time, step) {
 function get_records(recall) {
   $.ajax({
     url: url,
-    data: {
-      fun: "get_records",
-    },
+    data: { fun: "get_records" },
     success: response => {
       records = JSON.parse(response);
       recall();
