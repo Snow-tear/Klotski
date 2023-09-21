@@ -36,20 +36,17 @@ function show_records(sort = "time") {
   sort_records(records, sort);
   const table = document.getElementById("ranking");
   $("#ranking tr:not(:first)").remove();
-  let r = 1;
-  for (let record of records) {
+  for (let i in records) {
     let tr = document.createElement("tr");
     table.appendChild(tr);
-
     let td = document.createElement("td");
-    td.innerHTML = r;
+    td.innerHTML = +i + 1;
     tr.appendChild(td);
-    for (let value of record) {
+    for (let value of records[i]) {
       let td = document.createElement("td");
       td.innerHTML = value;
       tr.appendChild(td);
     }
-    r++;
   }
 }
 
