@@ -155,8 +155,8 @@ function onDragEnd() {
     app.stage.off("pointermove", onDragMove);
     dragTarget.alpha = 1;
 
-    dragTarget.x = Math.round(dragTarget.x / 方块边长) * 方块边长;
-    dragTarget.y = Math.round(dragTarget.y / 方块边长) * 方块边长;
+    dragTarget.x = nearestGridPosition(dragTarget.x);
+    dragTarget.y = nearestGridPosition(dragTarget.y);
 
     if (dragTarget.x !== dragTarget.x_ || dragTarget.y !== dragTarget.y_) {
       document.getElementById("step").textContent = ++step;
