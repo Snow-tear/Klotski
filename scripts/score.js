@@ -31,11 +31,11 @@ function get_records(recall) {
   });
 }
 
-function show_records(sort = "name") {
+function show_records(sort = "time") {
   if (!records) return -1;
   sort_records(records, sort);
   const table = document.getElementById("ranking");
-  $("#ranking tr:not(:first)").html("");
+  $("#ranking tr:not(:first)").remove();
   let r = 1;
   for (let record of records) {
     let tr = document.createElement("tr");
@@ -55,9 +55,17 @@ function show_records(sort = "name") {
 
 function sort_records(records, sort) {
   if (sort === "name") {
+    records.sort((a, b) => {
+      const [name1, name2] = [a[0], b[0]];
+      if (name1 > name2) return 1;
+      if (name2 > name1) return -1;
+      return 0;
+    });
+  } else if (sort === "time") {
     records.sort((a, b) => a[1] - b[1]);
   } else if (sort === "step") {
     records.sort((a, b) => a[2] - b[2]);
+    console.log(records);
   }
 }
 get_records(show_records);
