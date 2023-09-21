@@ -1,6 +1,5 @@
 let url =
   "https://script.google.com/macros/s/AKfycbxR_K3DpWG6kwB13UIbsyE_QWvNSpeswtX0niQFjMG_tBqLe2S9gZMM8VUKz6nJzlB-HA/exec";
-
 let records = null;
 
 function add_record(name, time, step) {
@@ -55,4 +54,5 @@ function sort_records(records, sort) {
     console.log(records);
   }
 }
+
 get_records(show_records);
