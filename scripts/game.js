@@ -116,19 +116,11 @@ function onDragMove(event) {
 
   if (allowDragTo(x, dragTarget.y)) {
     x = autoGrid(x);
-    dragTarget.parent.toLocal(
-      new PIXI.Point(x, dragTarget.y),
-      null,
-      dragTarget.position
-    );
+    dragTarget.x = x;
   }
   if (allowDragTo(dragTarget.x, y)) {
     y = autoGrid(y);
-    dragTarget.parent.toLocal(
-      new PIXI.Point(dragTarget.x, y),
-      null,
-      dragTarget.position
-    );
+    dragTarget.y = y;
   }
 }
 
