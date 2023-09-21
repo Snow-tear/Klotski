@@ -1,6 +1,8 @@
 let url =
   "https://script.google.com/macros/s/AKfycbxR_K3DpWG6kwB13UIbsyE_QWvNSpeswtX0niQFjMG_tBqLe2S9gZMM8VUKz6nJzlB-HA/exec";
 
+let records = null;
+
 function add_record(name, time, step) {
   $.ajax({
     url: url,
@@ -11,34 +13,27 @@ function add_record(name, time, step) {
       step: step,
     },
     success: response => {
-      if (response == "成功") {
-        console.log("数据添加成功");
-      }
-
-      get_records();
+      get_records(show_records);
     },
   });
 }
 
-function get_records() {
+function get_records(recall) {
   $.ajax({
     url: url,
     data: {
       fun: "get_records",
     },
     success: response => {
-      if (response) {
-        show_records(JSON.parse(response));
-      } else {
-        console.log("排行榜数据获取失败");
-      }
+      records = JSON.parse(response);
+      recall();
     },
   });
 }
 
-function show_records(records) {
-  console.log(records);
-  records.sort((a, b) => a[1] - b[1]);
+function show_records(sort = "name") {
+  if (!records) return -1;
+  sort_records(records, sort);
   const table = document.getElementById("ranking");
   let r = 1;
   for (let record of records) {
@@ -57,4 +52,11 @@ function show_records(records) {
   }
 }
 
-get_records();
+function sort_records(records, sort) {
+  if (sort === "name") {
+    records.sort((a, b) => a[1] - b[1]);
+  } else if (sort === "step") {
+    records.sort((a, b) => a[2] - b[2]);
+  }
+}
+get_records(show_records);
