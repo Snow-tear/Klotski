@@ -68,3 +68,7 @@ table tbody {
   color: #3c193cbf;
   font-size: large;
 }
+
+table tbody tr :hover {
+  color: #fb98fbbf;
+}
