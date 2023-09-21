@@ -35,7 +35,7 @@ function show_records(sort = "name") {
   if (!records) return -1;
   sort_records(records, sort);
   const table = document.getElementById("ranking");
-  table.innerHTML = `<tr><td>排名</td><td>昵称</td><td>用时</td><td>步数</td></tr>`;
+  $("#ranking tr:not(:first)").html("");
   let r = 1;
   for (let record of records) {
     let tr = document.createElement("tr");
