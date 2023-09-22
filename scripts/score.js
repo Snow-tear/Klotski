@@ -1,11 +1,12 @@
 let url =
-  "https://script.google.com/macros/s/AKfycbzcFU6v7DQmqeGLqBB-vi2LJ7uKdtkLeIUHx0Urr71O4HqzGtHE9ZP5jms_mguqxKhgjA/exec";
+  "https://script.google.com/macros/s/AKfycbwvUkbD3iT6RODq0hg1ZddMhCaWoMP9eZJnE0f6CqY9C2Wc_9aw-4_rXJlfcQYTgzeEJA/exec";
+
 let records = null;
 
-function add_record(name, time, step) {
+function add_record(name, time, step, 关卡) {
   $.ajax({
     url: url,
-    data: { fun: "add_record", name: name, time: time, step: step },
+    data: { fun: "add_record", name: name, time: time, step: step, 关卡: 关卡 },
     success: response => {
       get_records(show_records);
     },
@@ -26,7 +27,7 @@ function get_records(recall) {
 function show_records(sort = "time") {
   if (!records) return -1;
   sort_records(records, sort);
-  const tbody = document.querySelector('#ranking tbody');
+  const tbody = document.querySelector("#ranking tbody");
   $("#ranking tr:not(:first)").remove();
   for (let i in records) {
     let tr = document.createElement("tr");

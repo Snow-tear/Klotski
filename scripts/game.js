@@ -159,7 +159,7 @@ function onDragEnd() {
         "name used on score board"
       );
       if (!username) username = "anomynous player";
-      add_record(username, time / 100, step);
+      add_record(username, time / 100, step, 关卡);
       clearInterval(timer);
     }
 
@@ -177,18 +177,19 @@ function chronoStart() {
 
 let sprites;
 
-function startGame(关卡) {
+function startGame(关卡_) {
+  关卡 = 关卡_;
+  app.stage.removeChildren();
+  sprites = {};
+  time = 0;
+  document.getElementById("clock").textContent = time.toFixed(2);
+  if (timer) clearInterval(timer);
+  step = 0;
+  document.getElementById("step").textContent = step;
   fetch("scripts/角色.json")
     .then(response => response.json())
     .then(关卡配置 => {
       let 角色配置 = 关卡配置[关卡];
-      app.stage.removeChildren();
-      sprites = {};
-      time = 0;
-      document.getElementById("clock").textContent = time.toFixed(2);
-      if (timer) clearInterval(timer);
-      step = 0;
-      document.getElementById("step").textContent = step;
       for (const 角色 in 角色配置) {
         sprites[角色] = 创建角色(角色配置[角色]);
       }
