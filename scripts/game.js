@@ -25,15 +25,16 @@ let timer;
 
 let step;
 
-function 创建角色({ nb_i, nb_j, i, j, image_path }) {
-  const sprite = PIXI.Sprite.from(image_path);
+function 创建角色(角色们, { i, j, 角色 }) {
+  const sprite = PIXI.Sprite.from("images/" + 角色 + ".png");
 
-  sprite.nb_i = nb_i;
-  sprite.nb_j = nb_j;
+  sprite.nb_i = 角色们[角色].nb_i;
+  sprite.nb_j = 角色们[角色].nb_j;
+
   sprite.x = sprite.x_ = i * 方块边长;
   sprite.y = sprite.y_ = j * 方块边长;
-  sprite.width = nb_i * 方块边长;
-  sprite.height = nb_j * 方块边长;
+  sprite.width = sprite.nb_i * 方块边长;
+  sprite.height = sprite.nb_j * 方块边长;
   // sprite.anchor.set(0.5);
 
   sprite.canAutoGrid = false; //在行进过程中是否允许微量自动对齐（为了转角）
@@ -179,8 +180,8 @@ function chronoStart() {
 
 let sprites;
 
-function startGame(关卡_) {
-  关卡 = 关卡_;
+function startGame(关卡名) {
+  关卡 = 关卡名;
   app.stage.removeChildren();
   sprites = {};
   time = 0;
@@ -188,14 +189,23 @@ function startGame(关卡_) {
   if (timer) clearInterval(timer);
   step = 0;
   document.getElementById("step").textContent = step;
-  fetch("scripts/角色.json")
-    .then(response => response.json())
-    .then(关卡配置 => {
-      let 角色配置 = 关卡配置[关卡];
-      for (const 角色 in 角色配置) {
-        sprites[角色] = 创建角色(角色配置[角色]);
+  Promise.all([fetch("scripts/角色们.json"), fetch("scripts/关卡们.json")])
+    .then(responses => Promise.all(responses.map(response => response.json())))
+    .then(jsons => {
+      const [角色们, 关卡们] = jsons;
+      for (方块名 in 关卡们[关卡名]) {
+        sprites[方块名] = 创建角色(角色们, 关卡们[关卡名][方块名]);
       }
     });
+
+  // fetch("scripts/角色.json")
+  //   .then(response => response.json())
+  //   .then(关卡配置 => {
+  //     let 角色配置 = 关卡配置[关卡];
+  //     for (const 角色 in 角色配置) {
+  //       sprites[角色] = 创建角色(角色配置[角色]);
+  //     }
+  //   });
 }
 
 startGame("横刀立马");
