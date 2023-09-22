@@ -11,6 +11,8 @@ const tolerance = 5; //自动吸附长度（为了实现转角）
 
 let lastDragPoint = null;
 
+const 昵称默认词 = "name used on score board";
+
 const app = new PIXI.Application({
   background: "#CFCFCF",
   width: width,
@@ -156,9 +158,9 @@ function onDragEnd() {
     if (sprites.曹操.x == 1 * 方块边长 && sprites.曹操.y == 3 * 方块边长) {
       let username = prompt(
         `你赢了！用时${time / 100}秒，${step}步。\n输入昵称来添加至排行榜`,
-        "name used on score board"
+        昵称默认词
       );
-      if (!username) username = "anomynous player";
+      if (!username || username === 昵称默认词) username = "anomynous player";
       add_record(username, time / 100, step, 关卡);
       clearInterval(timer);
     }

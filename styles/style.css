@@ -73,6 +73,14 @@ table th:not(:first-child):hover {
   color: #fb98fbbf;
 }
 
+table tbody tr td:nth-child(odd) {
+  color: rgba(208, 105, 105, 0.752);
+}
+
+table tbody tr td:nth-child(even) {
+  color: rgba(255, 213, 213, 0.861);
+}
+
 caption {
   color: #583b58a4;
   font-size: x-large;
