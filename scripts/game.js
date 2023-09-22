@@ -197,3 +197,8 @@ function startGame(关卡_) {
 }
 
 startGame("横刀立马");
+
+document.querySelectorAll(".关卡 span")[0].onclick = () =>
+  startGame("横刀立马");
+document.querySelectorAll(".关卡 span")[1].onclick = () =>
+  startGame("横竖皆将");

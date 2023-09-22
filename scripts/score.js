@@ -35,6 +35,7 @@ function show_records(sort = "time") {
 
     let record = [+i + 1].concat(records[i].slice(0, 3));
     record.push(timestamp_to_date(records[i][3]));
+    record.push(records[i][4]);
 
     for (let value of record) {
       let td = document.createElement("td");
@@ -56,10 +57,15 @@ function sort_records(records, sort) {
     records.sort((a, b) => a[1] - b[1]);
   } else if (sort === "step") {
     records.sort((a, b) => a[2] - b[2]);
-    console.log(records);
   } else if (sort === "date") {
     records.sort((a, b) => b[3] - a[3]);
-    console.log(records);
+  } else if (sort === "关卡") {
+    records.sort((a, b) => {
+      const [关卡1, 关卡2] = [a[4], b[4]];
+      if (关卡1 > 关卡2) return 1;
+      if (关卡2 > 关卡1) return -1;
+      return 0;
+    });
   }
 }
 
