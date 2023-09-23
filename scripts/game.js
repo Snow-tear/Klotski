@@ -2,6 +2,8 @@ const [nb_i, nb_j] = [4, 5];
 
 let 关卡;
 
+let 赢了;
+
 const 方块边长 = 100;
 
 const width = nb_i * 方块边长;
@@ -156,7 +158,12 @@ function onDragEnd() {
       dragTarget.y_ = dragTarget.y;
     }
 
-    if (sprites.曹操.x == 1 * 方块边长 && sprites.曹操.y == 3 * 方块边长) {
+    if (
+      sprites.曹操.x == 1 * 方块边长 &&
+      sprites.曹操.y == 3 * 方块边长 &&
+      !赢了
+    ) {
+      赢了 = true;
       let username = prompt(
         `你赢了！用时${time / 100}秒，${step}步。\n输入昵称来添加至排行榜`,
         昵称默认词
@@ -182,7 +189,7 @@ let sprites;
 
 function startGame(关卡名) {
   关卡 = 关卡名;
-
+  赢了 = false;
   app.stage.removeChildren();
   sprites = {};
   time = 0;
