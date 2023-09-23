@@ -31,6 +31,8 @@ canvas {
   margin: auto;
 }
 
+.关卡 span:hover,
+table th:not(:first-child):hover,
 a:hover {
   color: #fb98fbbf;
 }
@@ -72,10 +74,6 @@ a:hover {
 table th {
   color: #3c193cbf;
   font-size: large;
-}
-
-table th:not(:first-child):hover {
-  color: #fb98fbbf;
 }
 
 table tbody tr td:nth-child(odd) {
