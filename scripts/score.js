@@ -29,18 +29,21 @@ function show_records(sort = "time") {
   sort_records(records, sort);
   const tbody = document.querySelector("#ranking tbody");
   $("#ranking tr:not(:first)").remove();
-  for (let i in records) {
-    let tr = document.createElement("tr");
-    tbody.appendChild(tr);
+  let i = 1;
+  for (let record of records) {
+    if (record[4] === 关卡) {
+      let tr = document.createElement("tr");
+      tbody.appendChild(tr);
 
-    let record = [+i + 1].concat(records[i].slice(0, 3));
-    record.push(timestamp_to_date(records[i][3]));
-    record.push(records[i][4]);
+      let tr_content = [i].concat(record.slice(0, 3));
+      tr_content.push(timestamp_to_date(record[3]));
 
-    for (let value of record) {
-      let td = document.createElement("td");
-      td.innerHTML = value;
-      tr.appendChild(td);
+      for (let value of tr_content) {
+        let td = document.createElement("td");
+        td.innerHTML = value;
+        tr.appendChild(td);
+      }
+      i++;
     }
   }
 }

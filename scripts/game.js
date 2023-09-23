@@ -182,6 +182,7 @@ let sprites;
 
 function startGame(关卡名) {
   关卡 = 关卡名;
+
   app.stage.removeChildren();
   sprites = {};
   time = 0;
@@ -197,20 +198,17 @@ function startGame(关卡名) {
         sprites[方块名] = 创建角色(角色们, 关卡们[关卡名][方块名]);
       }
     });
-
-  // fetch("scripts/角色.json")
-  //   .then(response => response.json())
-  //   .then(关卡配置 => {
-  //     let 角色配置 = 关卡配置[关卡];
-  //     for (const 角色 in 角色配置) {
-  //       sprites[角色] = 创建角色(角色配置[角色]);
-  //     }
-  //   });
 }
 
 startGame("横刀立马");
 
-document.querySelectorAll(".关卡 span")[0].onclick = () =>
+document.querySelectorAll(".关卡 span")[0].onclick = () => {
   startGame("横刀立马");
-document.querySelectorAll(".关卡 span")[1].onclick = () =>
+
+  get_records(show_records);
+};
+document.querySelectorAll(".关卡 span")[1].onclick = () => {
   startGame("横竖皆将");
+
+  get_records(show_records);
+};
