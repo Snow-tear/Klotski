@@ -205,10 +205,10 @@ startGame("横刀立马");
 document.querySelectorAll(".关卡 span")[0].onclick = () => {
   startGame("横刀立马");
 
-  get_records(show_records);
+  show_records();
 };
 document.querySelectorAll(".关卡 span")[1].onclick = () => {
   startGame("横竖皆将");
 
-  get_records(show_records);
+  show_records();
 };
