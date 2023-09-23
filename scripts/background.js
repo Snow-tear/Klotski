@@ -26,12 +26,12 @@ function 加载图片并绘制背景() {
 }
 function 绘制背景() {
   if (loaded_img_nb === 7) {
-    bg_width = canvas.width = window.screen.availWidth;
-    bg_height = canvas.height = window.screen.availHeight;
+    bg_width = canvas.width = document.body.clientWidth;
+    bg_height = canvas.height = document.body.clientHeight;
     let 背景方块数 = Math.floor((bg_width * bg_height) / 8000);
 
     添加背景方块(背景方块数);
-  } else 加载图片并绘制背景();
+  }
 }
 
 function 添加背景方块(背景方块数) {
