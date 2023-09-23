@@ -4,7 +4,7 @@ let 关卡;
 
 let 赢了;
 
-const 方块边长 = 100;
+const 方块边长 = 500;
 
 const width = nb_i * 方块边长;
 const height = nb_j * 方块边长;

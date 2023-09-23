@@ -42,7 +42,7 @@ function 添加背景方块(背景方块数) {
     ctx.globalAlpha = Math.random() * 0.7;
     ctx.translate(x, y);
     ctx.rotate(Math.PI * Math.random());
-    const k = Math.random() * 0.5;
+    const k = Math.random() * 0.05;
     const img = bg_imgs[Math.floor(Math.random() * 7)];
     ctx.drawImage(img, 0, 0, img.width * k, img.height * k);
 
