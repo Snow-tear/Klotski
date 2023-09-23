@@ -14,13 +14,13 @@ function 添加背景方块(背景方块数) {
   if (背景方块数) {
     let img = new Image();
     img.src = [
-      "images/曹操.png",
-      "images/关羽.png",
-      "images/张飞.png",
-      "images/赵云.png",
-      "images/马超.png",
-      "images/黄忠.png",
-      "images/兵.png",
+      "images/曹操.svg",
+      "images/关羽.svg",
+      "images/张飞.svg",
+      "images/赵云.svg",
+      "images/马超.svg",
+      "images/黄忠.svg",
+      "images/兵.svg",
     ][Math.floor(Math.random() * 7)];
     img.onload = () => {
       ctx.save();

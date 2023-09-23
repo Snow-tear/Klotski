@@ -26,7 +26,7 @@ let timer;
 let step;
 
 function 创建角色(角色们, { i, j, 角色 }) {
-  const sprite = PIXI.Sprite.from("images/" + 角色 + ".png");
+  const sprite = PIXI.Sprite.from("images/" + 角色 + ".svg");
 
   sprite.nb_i = 角色们[角色].nb_i;
   sprite.nb_j = 角色们[角色].nb_j;
