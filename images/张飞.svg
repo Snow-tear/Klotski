@@ -3,7 +3,8 @@
   width="1000" height="2000"
   xmlns="http://www.w3.org/2000/svg">
 
-  <rect width="100%" height="100%" fill="#bbdca5" />
+  <rect width="100%" height="100%" fill="#bbdca5" stroke="#cbecb5" stroke-width="100"/>
+  <rect width="100%" height="100%" fill="transparent" stroke="#bbdca5" stroke-width="20"/>
 
   <text x='50%' y="30%" font-size="450" text-anchor="middle" fill="black" dominant-baseline='middle'>
     张</text>

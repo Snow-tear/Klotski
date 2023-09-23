@@ -22,10 +22,10 @@ body {
   display: flex;
 }
 
-#game canvas{
-    width: 400px;
-    height: 500px;
-  }
+#game canvas {
+  width: 400px;
+  height: 500px;
+}
 
 canvas {
   margin: auto;
